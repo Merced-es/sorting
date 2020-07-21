@@ -9,10 +9,10 @@ public class Sorter {
   public static void merge(int[] data, int from, int to) {
     if (to > from + 1) {
 
-      int midpoint = (from + to) / 2;
+      int midpoint  = (from + to) / 2;
 
-      merge(data, from, midpoint); //sort left pile.
-      merge(data, midpoint, to); //sort right pile.
+      merge(data, from, midpoint); // Sort left pile.
+      merge(data, midpoint, to);   // Sort right pile.
 
       int leftIndex = from;
       int rightIndex = midpoint;
@@ -44,5 +44,29 @@ public class Sorter {
     }
   }
 
-}
+  public static void quickSort(int[] data) {
+    quickSort(data, 0, data.length);
+  }
 
+  public static void quickSort(int[] data, int fromIndex, int toIndex) {
+    if (toIndex > fromIndex + 1) {
+      int pivot = data[fromIndex];
+      int partitionIndex = fromIndex;
+      for (int i = fromIndex + 1; i < toIndex; i++) {
+        int current = data[i];
+        if (current <= pivot) {
+          partitionIndex++;
+          if (i > partitionIndex) {
+            data[i] = data[partitionIndex];
+            data[partitionIndex] = current;
+          }
+        }
+      }
+      data[fromIndex] = data[partitionIndex];
+      data[partitionIndex] = pivot;
+      quickSort(data, fromIndex, partitionIndex);
+      quickSort(data, partitionIndex +1, toIndex);
+    }
+  }
+
+}
